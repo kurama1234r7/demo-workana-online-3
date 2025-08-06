@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Workana Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff8f2;
+            color: #333;
+        }
+        header, nav, section {
+            padding: 20px;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #d35400;
+            font-weight: bold;
+        }
+        .active {
+            text-decoration: underline;
+        }
+        section {
+            display: none;
+        }
+        #inicio {
+            display: block;
+        }
+        .producto {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            width: 200px;
+        }
+        .carrito-contador {
+            float: right;
+            font-weight: bold;
+            color: #e67e22;
+        }
+        .login-form {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #e67e22;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Demo Workana Online</h1>
+        <span class="carrito-contador">Carrito: <span id="carrito-contador">0</span> items</span>
+    </header>
+    <nav>
+        <a href="#" onclick="mostrarSeccion('inicio')">Inicio</a>
+        <a href="#" onclick="mostrarSeccion('productos')">Productos</a>
+        <a href="#" onclick="mostrarSeccion('detalle')">Detalle</a>
+        <a href="#" onclick="mostrarSeccion('carrito')">Carrito</a>
+        <a href="#" onclick="mostrarSeccion('checkout')">Pago</a>
+        <a href="#" onclick="mostrarSeccion('contacto')">Contacto</a>
+        <a href="#" onclick="mostrarSeccion('login')">Login</a>
+    </nav>
+
+    <section id="inicio">
+        <h2>Bienvenido a nuestra tienda online</h2>
+        <p>Explora nuestros productos de calidad y realiza tus compras fácilmente.</p>
+    </section>
+
+    <section id="productos">
+        <input type="text" id="busqueda" placeholder="Buscar productos..." onkeyup="filtrarProductos()">
+        <div id="lista-productos">
+            <div class="producto" data-nombre="Zapatos" data-categoria="Calzado">
+                <h3>Zapatos</h3>
+                <p>$50</p>
+                <button onclick="agregarAlCarrito()">Agregar al carrito</button>
+            </div>
+            <div class="producto" data-nombre="Camiseta" data-categoria="Ropa">
+                <h3>Camiseta</h3>
+                <p>$20</p>
+                <button onclick="agregarAlCarrito()">Agregar al carrito</button>
+            </div>
+            <div class="producto" data-nombre="Gorra" data-categoria="Accesorios">
+                <h3>Gorra</h3>
+                <p>$15</p>
+                <button onclick="agregarAlCarrito()">Agregar al carrito</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="detalle">
+        <h2>Detalle del producto</h2>
+        <p>Selecciona un producto para ver más información.</p>
+    </section>
+
+    <section id="carrito">
+        <h2>Carrito de Compras</h2>
+        <p>Aquí aparecerán los productos que agregues.</p>
+    </section>
+
+    <section id="checkout">
+        <h2>Formulario de Pago</h2>
+        <p>Completa los datos para finalizar tu compra.</p>
+    </section>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <p>Contáctanos para cualquier consulta o soporte.</p>
+    </section>
+
+    <section id="login">
+        <h2>Login</h2>
+        <form class="login-form" onsubmit="return loginUsuario()">
+            <input type="text" placeholder="Usuario" required>
+            <input type="password" placeholder="Contraseña" required>
+            <input type="submit" value="Ingresar">
+        </form>
+    </section>
+
+    <script>
+        function mostrarSeccion(id) {
+            const secciones = document.querySelectorAll('section');
+            secciones.forEach(seccion => seccion.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+        }
+
+        let contadorCarrito = 0;
+        function agregarAlCarrito() {
+            contadorCarrito++;
+            document.getElementById('carrito-contador').textContent = contadorCarrito;
+            alert("Producto agregado al carrito");
+        }
+
+        function filtrarProductos() {
+            const input = document.getElementById("busqueda").value.toLowerCase();
+            const productos = document.querySelectorAll(".producto");
+            productos.forEach(producto => {
+                const nombre = producto.getAttribute("data-nombre").toLowerCase();
+                const categoria = producto.getAttribute("data-categoria").toLowerCase();
+                producto.style.display = (nombre.includes(input) || categoria.includes(input)) ? "inline-block" : "none";
+            });
+        }
+
+        function loginUsuario() {
+            alert("Login simulado exitoso (no conectado a base de datos)");
+            return false;
+        }
+    </script>
+</body>
+</html>
